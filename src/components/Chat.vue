@@ -131,7 +131,7 @@ export default {
                         // to send a different response to the user
                         let auxConversation = [];
                         this.conversation.forEach(chat => auxConversation.push(chat));
-                        if(lastTwoAreNotFound(auxConversation, res.data.answers[0].flags)) {
+                        if(auxConversation.length > 1 && lastTwoAreNotFound(auxConversation, res.data.answers[0].flags)) {
                             let query = getCharactersQuery();
                             let res = await this.api.post(`graphql`, query);
                             if (res.success) {
@@ -175,6 +175,7 @@ export default {
                     this.conversation = JSON.parse(localStorage.getItem("conversation"));
                 }
             } else {
+                console.log('nueva conversación');
                 this.newConversation();
             }
         },
