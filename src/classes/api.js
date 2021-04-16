@@ -19,6 +19,7 @@ export const API = class API {
         url: `${this.apiURL}${url}`,
         data: params,
         headers: {
+          "Access-Control-Allow-Origin": "*",
           Authorization: "",
         },
       });
@@ -45,6 +46,7 @@ export const API = class API {
         data: params,
         headers: {
           Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
       });
