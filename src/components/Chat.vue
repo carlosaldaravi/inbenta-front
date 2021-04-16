@@ -175,7 +175,6 @@ export default {
                     this.conversation = JSON.parse(localStorage.getItem("conversation"));
                 }
             } else {
-                console.log('nueva conversación');
                 this.newConversation();
             }
         },
