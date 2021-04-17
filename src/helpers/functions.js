@@ -2,10 +2,10 @@
  * @param {number} i
  * @returns {string}
  */
-function checkTime(i) {
+const formatNumber = (i) => {
     // add a zero in front of numbers<10
     if (i < 10) {
-        i = "0" + i;
+        i = `0${i}`;
     }
     return i;
 }
@@ -13,26 +13,22 @@ function checkTime(i) {
  * @returns {string}
  */
 export const getTime = () => {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    
-    m = checkTime(m);
-    h = checkTime(h);
-    return h + ":" + m;
+    let today = new Date();
+    let h = formatNumber(today.getHours());
+    let m = formatNumber(today.getMinutes());
+
+    return `${h}:${m}`;
 };
 /**
  * @returns {string}
  */
 export const getDate = () => {
-    var today = new Date();
-    var d = today.getDate();
-    var m = today.getMonth()+1;
-    var y = today.getFullYear();
+    let today = new Date();
+    let d = formatNumber(today.getDate());
+    let m = formatNumber(today.getMonth()+1);
+    let y = today.getFullYear();
 
-    d = checkTime(d);
-    m = checkTime(m);
-    return d + "/" + m + "/" + y;
+    return `${d}/${m}/${y}`;
 };
 /**
  * @param {string} date1
@@ -42,11 +38,10 @@ export const getDate = () => {
 export const isBiggerThan = (date1, date2) => {
     date1 = date1.split('/');
     date2 = date2.split('/');
-    var a = new Date(date1[2], date1[1]-1, date1[0]);
-    var b = new Date(date2[2], date2[1]-1, date2[0]);
-    a.setHours(0,0,0,0);
-    b.setHours(0,0,0,0);
-    return a > b;
+    let a = new Date(date1[2], date1[1]-1, date1[0]);
+    let b = new Date(date2[2], date2[1]-1, date2[0]);
+
+    return a.getTime() > b.getTime();
 };
 /**
  * @param {array} flags 

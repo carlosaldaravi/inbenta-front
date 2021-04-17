@@ -1,6 +1,9 @@
 import axios from "axios";
 import { config } from "../config";
 import { Result } from "./result";
+import { Localit } from 'localit';
+
+const lstore = new Localit();
 
 // This is an axios wrapper. Only Get and Post methods are defined here since we dont use Put, Patch and Delete calls.
 // There are try-catch blocks so we can easily use the Vue Alert component when a request fails
@@ -14,7 +17,7 @@ export const API = class API {
 
   async get(url, params = null) {
     try {
-      let res = await axios({
+      let { data } = await axios({
         method: "get",
         url: `${this.apiURL}${url}`,
         data: params,
@@ -22,7 +25,7 @@ export const API = class API {
           Authorization: "",
         },
       });
-      this.result.ok(res.data);
+      this.result.ok(data);
     } catch (e) {
       this.result.error(e);
     } finally {
@@ -37,9 +40,12 @@ export const API = class API {
       case 'api': url = this.apiURL; break;
       case 'graphql': url = this.graphqlURL; break;
     }
-    let res = null;
+
+    params.accessToken = lstore.get('accessToken');
+    params.sessionToken = lstore.get('sessionToken');
+
     try {
-      res = await axios({
+      let { data } = await axios({
         method: "post",
         url,
         data: params,
@@ -48,7 +54,7 @@ export const API = class API {
           "Content-Type": "application/json",
         },
       });
-      this.result.ok(res.data);
+      this.result.ok(data);
     } catch (e) {
       this.result.error(e);
     } finally {
@@ -57,7 +63,7 @@ export const API = class API {
     }
   }
 
-  setBaseURL(url = null) {
-    this.apiURL = url || config.apiURL;
+  setBaseURL(url = config.apiURL) {
+    this.apiURL = url;
   }
 };
