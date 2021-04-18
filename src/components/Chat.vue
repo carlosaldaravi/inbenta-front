@@ -150,7 +150,6 @@ export default {
         // to send a different response to the user
         let auxConversation = [];
         this.conversation.forEach((chat) => auxConversation.push(chat));
-        console.log(auxConversation);
         if (
           auxConversation.length > 1 &&
           lastTwoAreNotFound(auxConversation, data.answers[0].flags)
