@@ -109,10 +109,11 @@ export default {
         await this.newConversation();
 
       if (this.msg === "") return;
-
+      let msgAux = this.msg;
+      this.msg = '';
       this.conversation.push({
         user: "Me",
-        message: this.msg,
+        message: msgAux,
         time: getTime(),
         date: getDate(),
         type: "normal",
@@ -121,7 +122,7 @@ export default {
       this.sending = true;
       //  if force is in the message the call is to a graphql
       //  to get a list of films
-      if (this.msg.includes("force")) {
+      if (msgAux.includes("force")) {
         let query = getFilmsQuery();
         let { data, success } = await this.api.post(`graphql`, query);
         if (!success) return;
@@ -140,7 +141,7 @@ export default {
         lstore.set("conversation", this.conversation);
       } else {
         let { data, success } = await this.api.post(`api`, {
-          userMessage: this.msg,
+          userMessage: msgAux,
         });
         if (!success) return;
         if (!data.answers) return;
@@ -190,7 +191,6 @@ export default {
       this.sending = false;
       this.scrollBottom();
       this.focusInput();
-      this.msg = "";
     },
     focusInput() {
       this.$refs.text.focus();
