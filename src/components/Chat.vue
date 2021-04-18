@@ -119,6 +119,7 @@ export default {
         type: "normal",
         notFound: false,
       });
+      this.scrollBottom();
       this.sending = true;
       //  if force is in the message the call is to a graphql
       //  to get a list of films
