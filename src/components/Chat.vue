@@ -10,7 +10,7 @@
           Write something to chat with YodaBot.
           <span class="italic text-xs">(For example start with "Hello")</span>
         </header>
-        <ul>
+        <ul class="space-y-1">
           <li v-for="(message, index) in conversation" :key="index">
             <ChatMessages
               :user="message.user"

@@ -3,7 +3,8 @@
         The <strong>force</strong> is in this movies:
         <ul>
             <li v-for="(film, index) in films" :key="index" class="flex relative left-4">
-                - {{film}}
+                <img src="../assets/img/espada.png" alt="espada" class="w-10 h-auto object-contain mr-1">
+                {{film}}
             </li>
         </ul>
     </div>
