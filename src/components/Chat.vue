@@ -72,7 +72,7 @@ import {
 } from "../helpers/functions";
 import { getFilmsQuery, getCharactersQuery } from "../helpers/graphql";
 import ChatMessages from "./ChatMessages";
-import { Localit } from 'localit';
+import { Localit } from "localit";
 
 const lstore = new Localit();
 
@@ -105,10 +105,8 @@ export default {
     getFilmsQuery,
     getCharactersQuery,
     async sendMessage() {
-      if (
-        !lstore.get("accessToken") &&
-        !lstore.get("sessionToken")
-      ) await this.newConversation();
+      if (!lstore.get("accessToken") && !lstore.get("sessionToken"))
+        await this.newConversation();
 
       if (this.msg === "") return;
 
@@ -139,7 +137,7 @@ export default {
           date: getDate(),
           notFound: false,
         });
-        lstore.set('conversation', this.conversation);
+        lstore.set("conversation", this.conversation);
       } else {
         let { data, success } = await this.api.post(`api`, {
           userMessage: this.msg,
@@ -164,7 +162,7 @@ export default {
             data.data.allPeople.people.forEach((character) =>
               characters.push(character.name)
             );
-            
+
             this.conversation.push({
               user: "YodaBot",
               message: "",
@@ -174,7 +172,7 @@ export default {
               type: "noResults",
               notFound: false,
             });
-            lstore.set('conversation', this.conversation);
+            lstore.set("conversation", this.conversation);
           }
         } else {
           // normal response
@@ -188,22 +186,22 @@ export default {
             notFound: isResultNotFound(data.answers[0].flags),
           });
         }
-        lstore.set('conversation', this.conversation);
+        lstore.set("conversation", this.conversation);
       }
       this.sending = false;
       this.scrollBottom();
       this.focusInput();
-      this.msg = '';
+      this.msg = "";
     },
     focusInput() {
       this.$refs.text.focus();
     },
     async checkConversationHistory() {
-      let accessToken = lstore.get('accessToken');
-      let sessionToken = lstore.get('sessionToken');
+      let accessToken = lstore.get("accessToken");
+      let sessionToken = lstore.get("sessionToken");
       if (accessToken && sessionToken) {
-        if (lstore.get('conversation')) {
-          this.conversation = lstore.get('conversation');
+        if (lstore.get("conversation")) {
+          this.conversation = lstore.get("conversation");
         }
       } else {
         this.newConversation();
@@ -216,9 +214,9 @@ export default {
       let { data, success } = await this.api.post(`api`, {
         requestToken: true,
       });
-      if(!success) return;
-      lstore.set('accessToken', data.accessToken, '19m');
-      lstore.set('sessionToken', data.sessionToken, '19m');
+      if (!success) return;
+      lstore.set("accessToken", data.accessToken, "19m");
+      lstore.set("sessionToken", data.sessionToken, "19m");
     },
     scrollBottom() {
       // set timeout to do scroll until last sms

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { config } from "../config";
 import { Result } from "./result";
-import { Localit } from 'localit';
+import { Localit } from "localit";
 
 const lstore = new Localit();
 
@@ -35,14 +35,18 @@ export const API = class API {
   }
 
   async post(option, params) {
-    let url = ''
-    switch(option){
-      case 'api': url = this.apiURL; break;
-      case 'graphql': url = this.graphqlURL; break;
+    let url = "";
+    switch (option) {
+      case "api":
+        url = this.apiURL;
+        break;
+      case "graphql":
+        url = this.graphqlURL;
+        break;
     }
 
-    params.accessToken = lstore.get('accessToken');
-    params.sessionToken = lstore.get('sessionToken');
+    params.accessToken = lstore.get("accessToken");
+    params.sessionToken = lstore.get("sessionToken");
 
     try {
       let { data } = await axios({
